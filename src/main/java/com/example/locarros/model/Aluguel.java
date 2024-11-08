@@ -1,10 +1,17 @@
 package com.example.locarros.model;
 
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import java.time.LocalDate;
 
 @Entity
+@Table(name = "alugueis")
+@Getter
+@Setter
+@NoArgsConstructor
 public class Aluguel {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -16,7 +23,7 @@ public class Aluguel {
 
     @ManyToOne
     @JoinColumn(name = "locatario_id", nullable = false)
-    private Usuario locatario;
+    private Locatario locatario;
 
     @ManyToOne
     @JoinColumn(name = "locador_id", nullable = false)
@@ -29,7 +36,7 @@ public class Aluguel {
     @Enumerated(EnumType.STRING)
     private StatusAluguel status;
 
-    public Aluguel(int aluguel_id, Carro carro, Usuario locatario, Locador locador, LocalDate dataInicio, LocalDate dataFim, double valor, StatusAluguel status) {
+    public Aluguel(int aluguel_id, Carro carro, Locatario locatario, Locador locador, LocalDate dataInicio, LocalDate dataFim, double valor, StatusAluguel status) {
         this.aluguel_id = aluguel_id;
         this.carro = carro;
         this.locatario = locatario;
@@ -37,73 +44,6 @@ public class Aluguel {
         this.dataInicio = dataInicio;
         this.dataFim = dataFim;
         this.valor = valor;
-        this.status = status;
-    }
-
-    public Aluguel() {
-    }
-
-    public int getAluguel_id() {
-        return aluguel_id;
-    }
-
-    public void setAluguel_id(int aluguel_id) {
-        this.aluguel_id = aluguel_id;
-    }
-
-    public Carro getCarro() {
-        return carro;
-    }
-
-    public void setCarro(Carro carro) {
-        this.carro = carro;
-    }
-
-    public Usuario getLocatario() {
-        return locatario;
-    }
-
-    public void setLocatario(Usuario locatario) {
-        this.locatario = locatario;
-    }
-
-    public Locador getLocador() {
-        return locador;
-    }
-
-    public void setLocador(Locador locador) {
-        this.locador = locador;
-    }
-
-    public LocalDate getDataInicio() {
-        return dataInicio;
-    }
-
-    public void setDataInicio(LocalDate dataInicio) {
-        this.dataInicio = dataInicio;
-    }
-
-    public LocalDate getDataFim() {
-        return dataFim;
-    }
-
-    public void setDataFim(LocalDate dataFim) {
-        this.dataFim = dataFim;
-    }
-
-    public double getValor() {
-        return valor;
-    }
-
-    public void setValor(double valor) {
-        this.valor = valor;
-    }
-
-    public StatusAluguel getStatus() {
-        return status;
-    }
-
-    public void setStatus(StatusAluguel status) {
         this.status = status;
     }
 }
