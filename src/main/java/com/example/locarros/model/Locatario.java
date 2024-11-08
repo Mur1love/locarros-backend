@@ -1,20 +1,23 @@
 package com.example.locarros.model;
 
-import jakarta.persistence.DiscriminatorValue;
-import jakarta.persistence.Entity;
-import jakarta.persistence.OneToMany;
+import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import java.util.ArrayList;
 
 @Entity
 @DiscriminatorValue("LOCATARIO")
+@Table(name = "locatarios")
+
+@Getter
+@Setter
+@NoArgsConstructor
 public class Locatario extends Usuario {
 
     @OneToMany(mappedBy = "locatario")
     private ArrayList<Aluguel> alugueis;
-
-    public Locatario() {
-    }
 
     public Locatario(ArrayList<Aluguel> alugueis) {
         this.alugueis = alugueis;
@@ -25,11 +28,4 @@ public class Locatario extends Usuario {
         this.alugueis = alugueis;
     }
 
-    public ArrayList<Aluguel> getAlugueis() {
-        return alugueis;
-    }
-
-    public void setAlugueis(ArrayList<Aluguel> alugueis) {
-        this.alugueis = alugueis;
-    }
 }
