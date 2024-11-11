@@ -29,4 +29,21 @@ public class LocadorService {
     public List<Locador> listarLocadores() {
         return locadorRepository.findAll();
     }
+
+    public Locador atualizarLocador(int id, Locador locadorAtualizado) {
+        Optional<Locador> locadorExistenteOpt = locadorRepository.findById(id);
+
+        if (locadorExistenteOpt.isPresent()) {
+            Locador locadorExistente = locadorExistenteOpt.get();
+
+            locadorExistente.setNome(locadorAtualizado.getNome());
+            locadorExistente.setEmail(locadorAtualizado.getEmail());
+            locadorExistente.setEndereco(locadorAtualizado.getEndereco());
+
+            return locadorRepository.save(locadorExistente);
+        } else {
+            throw new RuntimeException("Locador com ID " + id + " não encontrado");
+        }
+    }
+
 }

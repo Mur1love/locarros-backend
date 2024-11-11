@@ -13,6 +13,7 @@ import java.util.Optional;
 @Controller
 @RequestMapping("/locadores")
 public class LocadorController {
+
     @Autowired
     private LocadorService locadorService;
 
@@ -27,6 +28,7 @@ public class LocadorController {
         Locador novoLocador = locadorService.createLocador(locador);
         return ResponseEntity.ok(novoLocador);
     }
+
     @DeleteMapping("/remover/{id}")
     public ResponseEntity<Void> deletarLocador(@PathVariable int id) {
         Optional<Locador> locador  = locadorService.buscarLocadorPorId(id);
@@ -37,6 +39,18 @@ public class LocadorController {
             return ResponseEntity.notFound().build();
         }
     }
+
+    @PutMapping("/atualizar/{id}")
+    public ResponseEntity<Locador> atualizarLocador(@PathVariable int id, @RequestBody Locador locadorAtualizado) {
+        Optional<Locador> locadorExistente = locadorService.buscarLocadorPorId(id);
+        if (locadorExistente.isPresent()) {
+            Locador locadorAtualizadoDb = locadorService.atualizarLocador(id, locadorAtualizado);
+            return ResponseEntity.ok(locadorAtualizadoDb);
+        } else {
+            return ResponseEntity.notFound().build();
+        }
+    }
+
 
 
 
