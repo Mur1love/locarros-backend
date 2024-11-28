@@ -9,8 +9,6 @@ import java.util.List;
 @Repository
 public interface AluguelRepository extends JpaRepository<Aluguel, Integer> {
     List<Aluguel> findByLocador_Id(int locadorId);
-
     List<Aluguel> findByLocatario_Id(int locatarioId);
-
-    List<Aluguel> findByCarro_Id(int carroId);
+    List<Aluguel> findByCarro_CarroId(int carroId);
 }
