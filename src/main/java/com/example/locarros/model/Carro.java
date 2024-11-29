@@ -14,7 +14,9 @@ public class Carro {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int carro_id;
+    @Column(name = "carro_id") // Mapeando explicitamente a coluna no banco de dados
+    private int carroId;  // Alterando o nome da variável para "carroId" para seguir a convenção Java
+
     private String marca;
     private String modelo;
     private String placa;
@@ -23,8 +25,8 @@ public class Carro {
     @JoinColumn(name = "locador_id")
     private Locador locador;
 
-    public Carro(int carro_id, String marca, String modelo, String placa, Locador locador) {
-        this.carro_id = carro_id;
+    public Carro(int carroId, String marca, String modelo, String placa, Locador locador) {
+        this.carroId = carroId;
         this.marca = marca;
         this.modelo = modelo;
         this.placa = placa;
