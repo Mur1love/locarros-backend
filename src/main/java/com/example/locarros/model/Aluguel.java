@@ -1,5 +1,7 @@
 package com.example.locarros.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -23,6 +25,7 @@ public class Aluguel {
 
     @ManyToOne
     @JoinColumn(name = "locatario_id", nullable = false)
+    @JsonBackReference
     private Locatario locatario;
 
     @ManyToOne

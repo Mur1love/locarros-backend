@@ -15,7 +15,11 @@ public class LocatarioService {
     private LocatarioRepository locatarioRepository;
 
     public Locatario cadastrarLocatario(Locatario locatario) {
-        return locatarioRepository.save(locatario);
+        if (locatario != null) {
+            return locatarioRepository.save(locatario);
+        } else {
+            throw new RuntimeException("Locatário não pode ser null.");
+        }
     }
 
     public void excluirLocatario(int id) {

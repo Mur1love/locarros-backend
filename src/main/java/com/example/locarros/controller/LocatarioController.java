@@ -20,12 +20,14 @@ public class LocatarioController {
     @GetMapping
     public ResponseEntity<List<Locatario>> listarLocatarios() {
         List<Locatario> locatarios = locatarioService.listarLocatarios();
-        return ResponseEntity.ok(locatarios);}
+        return ResponseEntity.ok(locatarios);
+    }
 
     @PostMapping("/cadastro")
     public ResponseEntity<Locatario> criarLocatario(@RequestBody Locatario locatario) {
         Locatario novoLocatario = locatarioService.cadastrarLocatario(locatario);
-        return ResponseEntity.ok(novoLocatario);}
+        return ResponseEntity.ok(novoLocatario);
+    }
 
     @DeleteMapping("/remover/{id}")
     public ResponseEntity<Void> deletarLocatario(@PathVariable int id) {
@@ -34,7 +36,8 @@ public class LocatarioController {
             locatarioService.excluirLocatario(id);
             return ResponseEntity.noContent().build();
         } else {
-            return ResponseEntity.notFound().build();}}
+            return ResponseEntity.notFound().build();}
+    }
 
     @PutMapping("/atualizar/{id}")
     public ResponseEntity<Locatario> atualizarLocatario(@PathVariable int id, @RequestBody Locatario locatarioAtualizado) {
