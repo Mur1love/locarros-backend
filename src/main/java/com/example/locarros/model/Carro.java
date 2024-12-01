@@ -1,5 +1,6 @@
 package com.example.locarros.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -14,8 +15,8 @@ public class Carro {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "carro_id") // Mapeando explicitamente a coluna no banco de dados
-    private int carroId;  // Alterando o nome da variável para "carroId" para seguir a convenção Java
+    @Column(name = "carro_id")
+    private Integer carroId;
 
     private String marca;
     private String modelo;
@@ -23,6 +24,7 @@ public class Carro {
 
     @ManyToOne
     @JoinColumn(name = "locador_id")
+    @JsonBackReference
     private Locador locador;
 
     public Carro(int carroId, String marca, String modelo, String placa, Locador locador) {

@@ -1,5 +1,7 @@
 package com.example.locarros.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -19,6 +21,7 @@ import java.util.List;
 public class Locador extends Usuario {
 
     @OneToMany(mappedBy = "locador", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonManagedReference
     private List<Carro> carros = new ArrayList<>();
 
     public Locador(int id, String nome, String email, Endereco endereco, ArrayList<Carro> carros) {

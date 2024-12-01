@@ -1,7 +1,6 @@
 package com.example.locarros.controller;
 
 import com.example.locarros.model.Carro;
-import com.example.locarros.model.Locador;
 import com.example.locarros.service.CarroService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -14,6 +13,7 @@ import java.util.Optional;
 @Controller
 @RequestMapping("/carros")
 public class CarroController {
+
     @Autowired
     private CarroService carroService;
 
@@ -24,10 +24,16 @@ public class CarroController {
     }
 
     @PostMapping("/cadastro")
-    public ResponseEntity<Carro> criarCarro(@RequestBody Carro carro) {
-        Carro novoCarro = carroService.salvarCarro(carro);
-        return ResponseEntity.ok(novoCarro);
+    public ResponseEntity<?> criarCarro(@RequestBody Carro carro) {
+        try {
+            Carro novoCarro = carroService.salvarCarro(carro);
+            return ResponseEntity.ok(novoCarro);
+        } catch (RuntimeException ex) {
+            return ResponseEntity.badRequest().body(ex.getMessage());
+        }
     }
+
+
     @DeleteMapping("/remover/{id}")
     public ResponseEntity<Void> deletarCarro(@PathVariable int id) {
         Optional<Carro> carro  = carroService.buscarCarroPorId(id);

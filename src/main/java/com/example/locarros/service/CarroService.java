@@ -3,6 +3,7 @@ package com.example.locarros.service;
 import com.example.locarros.model.Carro;
 import com.example.locarros.model.Locador;
 import com.example.locarros.repository.CarroRepository;
+import com.example.locarros.repository.LocadorRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -11,6 +12,10 @@ import java.util.Optional;
 
 @Service
 public class CarroService {
+
+    @Autowired
+    private LocadorRepository locadorRepository;
+
     @Autowired
     private CarroRepository carroRepository;
 
@@ -23,7 +28,20 @@ public class CarroService {
     }
 
     public Carro salvarCarro(Carro carro) {
-        return carroRepository.save(carro);
+        if (carro.getLocador() != null && carro.getLocador().getId() != null) {
+            Locador locador = locadorRepository.findById(carro.getLocador().getId())
+                    .orElseThrow(() -> new RuntimeException("Locador não encontrado com ID: " + carro.getLocador().getId()));
+
+            locador.getCarros().add(carro);
+            carro.setLocador(locador);
+
+            // Só preciso salvar o locador pois o carro será salvo automáticamente
+            locadorRepository.save(locador);
+
+            return carro;
+        } else {
+            throw new RuntimeException("Locador é obrigatório.");
+        }
     }
 
     public void deletarCarro(Integer id) {
